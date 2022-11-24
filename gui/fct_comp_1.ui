@@ -14,28 +14,17 @@
    <string>Liste des épreuves d'une catégorie (version 2, catégories extraites de la BD)</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QLabel" name="labelEdit_fct_comp_1">
-       <property name="text">
-        <string>Saisissez une catégorie :</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="lineEdit_fct_comp_1"/>
-     </item>
-     <item>
-      <widget class="QPushButton" name="valider_fct_comp_1">
-       <property name="text">
-        <string>Valider</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+   <item row="4" column="0">
+    <widget class="QLabel" name="label_fct_comp_1">
+     <property name="text">
+      <string/>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
    </item>
-   <item row="1" column="0">
+   <item row="2" column="0">
     <widget class="QLabel" name="labelAFaire_fct_comp_1">
      <property name="text">
       <string>Travail à réaliser : améliorer l'interface afin de proposer une liste des catégories possibles (issues de la base de données).</string>
@@ -48,7 +37,47 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="0">
+   <item row="0" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="labelEdit_fct_comp_1">
+       <property name="text">
+        <string>Saisissez une catégorie :</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="comboBox_fct_comp_1">
+       <property name="editable">
+        <bool>false</bool>
+       </property>
+       <item>
+        <property name="text">
+         <string>masculin</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>feminin</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>mixte</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="valider_fct_comp_1">
+       <property name="text">
+        <string>Valider</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="3" column="0">
     <widget class="QTableWidget" name="table_fct_comp_1">
      <attribute name="horizontalHeaderMinimumSectionSize">
       <number>50</number>
@@ -96,16 +125,6 @@
      </column>
     </widget>
    </item>
-   <item row="3" column="0">
-    <widget class="QLabel" name="label_fct_comp_1">
-     <property name="text">
-      <string/>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-   </item>
   </layout>
  </widget>
  <resources/>
@@ -117,8 +136,8 @@
    <slot>refreshResult()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>364</x>
-     <y>52</y>
+     <x>789</x>
+     <y>34</y>
     </hint>
     <hint type="destinationlabel">
      <x>444</x>
