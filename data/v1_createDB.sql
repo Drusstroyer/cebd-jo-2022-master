@@ -9,7 +9,7 @@ CREATE TABLE LesSportifs
   dateNaisSp DATE NOT NULL,
   CONSTRAINT SP_CK1 CHECK(numSp > 999),
   CONSTRAINT SP_CK2 CHECK(numSp < 1501),
-  CONSTRAINT SP_CK3 CHECK(categorieSp) IN ('feminin','masculin')),
+  CONSTRAINT SP_CK3 CHECK(categorieSp IN ('feminin','masculin')),
   CONSTRAINT SP_NSP_FK FOREIGN KEY (numSp) REFERENCES LesInscrits(numParticipant),
   CONSTRAINT SP_CSP1_FK FOREIGN KEY (categorieSp) REFERENCES LesEquipes(categorieEq),
   CONSTRAINT SP_CSP2_FK FOREIGN KEY (categorieSp) REFERENCES LesEpreuves(categorieEp)
@@ -32,9 +32,9 @@ CREATE TABLE LesEquipes
 CREATE TABLE LesMembres
 (
  numSp NUMBER(4),
- numEq NUMBER(4),
- CONSTRAINT AP_FK1 FOREIGN KEY (nomSp) REFERENCES LesSportifs(numSp),
- CONSTRAINT AP_FK2 FOREIGN KEY (nomEq) REFERENCES LesEquipes(numEq)
+ numEq NUMBER(4) NOT NULL,
+ CONSTRAINT AP_FK1 FOREIGN KEY (numSp) REFERENCES LesSportifs(numSp),
+ CONSTRAINT AP_FK2 FOREIGN KEY (numEq) REFERENCES LesEquipes(numEq)
 );
 CREATE TABLE LesDisciplines
 (
@@ -73,16 +73,14 @@ CREATE TABLE LesInscrits
 (
  numParticipant NUMBER(4),
  numEp NUMBER(3),
- CONSTRAINT INS_EP_FK FOREIGN KEY (numEp) REFERENCES LesEpreuves(numEp),
-
+ CONSTRAINT INS_EP_FK FOREIGN KEY (numEp) REFERENCES LesEpreuves(numEp)
 );
-DROP VIEW IF EXISTS LesAgesSportifs
+DROP VIEW IF EXISTS LesAgesSportifs;
 CREATE VIEW IF NOT EXISTS LesAgesSportifs
 AS
-SELECT numSp, (YEAR(currentdate() - YEAR(dateNaisSp)  AS age
-FROM LesSportifs;
+SELECT numSp, (YEAR(currentdate()) - YEAR(dateNaisSp))  AS age FROM LesSportifs;
 
-DROP VIEW IF EXISTS LesNbsEquipiers
+DROP VIEW IF EXISTS LesNbsEquipiers;
 CREATE VIEW IF NOT EXISTS LesNbsEquipiers
 AS
 SELECT numEq, COUNT(numSp)

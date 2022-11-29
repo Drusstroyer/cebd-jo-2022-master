@@ -51,9 +51,19 @@ def read_excel_file_V1(data:sqlite3.Connection, file):
     cursor = data.cursor()
     for ix, row in df_sportifs.iterrows():
         try:
-            query = "insert into LesSportifsEQ values ({},'{}','{}','{}','{}','{}',{})".format(
-                row['numSp'], row['nomSp'], row['prenomSp'], row['pays'], row['categorieSp'], row['dateNaisSp'],
-                row['numEq'])
+            query = "insert into LesSportifs values ({},'{}','{}','{}','{}','{}')".format(
+                row['numSp'], row['nomSp'], row['prenomSp'], row['pays'], row['categorieSp'], row['dateNaisSp'])
+            # On affiche la requête pour comprendre la construction. A enlever une fois compris.
+            print(query)
+            cursor.execute(query)
+        except IntegrityError as err:
+            print(err)
+
+    cursor = data.cursor()
+    for ix, row in df_sportifs.iterrows():
+        try:
+            query = "insert into LesMembres values ({},'{}')".format(
+                row['numSp'], row['numEq'])
             # On affiche la requête pour comprendre la construction. A enlever une fois compris.
             print(query)
             cursor.execute(query)
@@ -63,6 +73,7 @@ def read_excel_file_V1(data:sqlite3.Connection, file):
     # pour construire uniformement la requête
     df_epreuves = pandas.read_excel(file, sheet_name='LesEpreuves', dtype=str)
     df_epreuves = df_epreuves.where(pandas.notnull(df_epreuves), 'null')
+
 
     cursor = data.cursor()
     for ix, row in df_epreuves.iterrows():
