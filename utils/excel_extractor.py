@@ -54,7 +54,7 @@ def read_excel_file_V1(data:sqlite3.Connection, file):
             query = "insert into LesSportifs values ({},'{}','{}','{}','{}','{}')".format(
                 row['numSp'], row['nomSp'], row['prenomSp'], row['pays'], row['categorieSp'], row['dateNaisSp'])
             # On affiche la requête pour comprendre la construction. A enlever une fois compris.
-            print(query)
+            # print(query)
             cursor.execute(query)
         except IntegrityError as err:
             print(err)
@@ -85,6 +85,40 @@ def read_excel_file_V1(data:sqlite3.Connection, file):
                 query = query + "'{}')".format(row['dateEp'])
             else:
                 query = query + "null)"
+            # On affiche la requête pour comprendre la construction. A enlever une fois compris.
+            # print(query)
+            cursor.execute(query)
+        except IntegrityError as err:
+            print(f"{err} : \n{row}")
+
+
+    df_epreuves = pandas.read_excel(file, sheet_name='LesInscriptions', dtype=str)
+    df_epreuves = df_epreuves.where(pandas.notnull(df_epreuves), 'null')
+
+
+    cursor = data.cursor()
+    for ix, row in df_epreuves.iterrows():
+        try:
+            query = "insert into LesInscrits values ({},'{}')".format(
+                row['numIn'], row['numEp'])
+
+            # On affiche la requête pour comprendre la construction. A enlever une fois compris.
+            # print(query)
+            cursor.execute(query)
+        except IntegrityError as err:
+            print(f"{err} : \n{row}")
+
+
+    df_epreuves = pandas.read_excel(file, sheet_name='LesResultats', dtype=str)
+    df_epreuves = df_epreuves.where(pandas.notnull(df_epreuves), 'null')
+
+
+    cursor = data.cursor()
+    for ix, row in df_epreuves.iterrows():
+        try:
+            query = "insert into LesResultats values ({},'{}','{}','{}')".format(
+                row['numEp'], row['gold'],row['silver'],row['bronze'])
+
             # On affiche la requête pour comprendre la construction. A enlever une fois compris.
             print(query)
             cursor.execute(query)
