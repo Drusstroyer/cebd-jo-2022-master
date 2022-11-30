@@ -128,22 +128,36 @@ def read_excel_file_V1(data:sqlite3.Connection, file):
         except IntegrityError as err:
             print(f"{err} : \n{row}")
 
-    df_epreuves = pandas.read_excel(file, sheet_name='LesEpreuves', dtype=str)
-    df_epreuves = df_epreuves.where(pandas.notnull(df_epreuves), 'null')
-
     cursor = data.cursor()
-    #query1 = "SELECT DISTINCT nomDi FROM LesEpreuves"
-    for ix, row in df_epreuves.iterrows():
+    query1 = "SELECT DISTINCT nomDi FROM LesEpreuves"
+    cursor.execute(query1)
+    result = cursor.fetchall()
+    for row in result:
         try:
-            query = "insert into LesDisciplines values ('{}')".format(row['nomDi'])
-
+            query = "insert into LesDisciplines values ('{}')".format(row[0])
             # On affiche la requête pour comprendre la construction. A enlever une fois compris.
-            print(query)
+            #print(query)
             cursor.execute(query)
         except IntegrityError as err:
             print(f"{err} : \n{row}")
 
-   # cursor = data.cursor()
-    #query1 = "SELECT DISTINCT numEq FROM LesMembres ORDER BY numEq"
-    #result =cursor.execute(query1)*/
+    cursor = data.cursor()
+    query1 = "SELECT DISTINCT numEq FROM LesMembres"
+    cursor.execute(query1)
+    result = cursor.fetchall()
+    for row in result:
+        try:
+            query = "insert into LesEquipes values ({},".format(row[0])
+
+            query2 = "SELECT categorieSp FROM LesSportifs join LesMembres using (numSp) where numEq = {}".format(row[0])
+            cursor.execute(query2)
+
+            # On affiche la requête pour comprendre la construction. A enlever une fois compris.
+            #print(query)
+            cursor.execute(query)
+        except IntegrityError as err:
+            print(f"{err} : \n{row}")
+
+
+
 
