@@ -1,5 +1,4 @@
 import sqlite3
-import re
 from sqlite3 import IntegrityError
 
 import pandas
@@ -54,18 +53,17 @@ def read_excel_file_V1(data:sqlite3.Connection, file):
         try:
             query = "insert into LesSportifs values ({},'{}','{}','{}','{}','{}')".format(
                 row['numSp'], row['nomSp'], row['prenomSp'], row['pays'], row['categorieSp'], row['dateNaisSp'])
-            # On affiche la requête pour comprendre la construction. A enlever une fois compris.
-            #
             cursor.execute(query)
         except IntegrityError as err:
             print(err)
 
+    df_sportifs = pandas.read_excel(file, sheet_name='LesSportifsEQ', dtype=str)
+    df_sportifs = df_sportifs.where(pandas.notnull(df_sportifs), 'null')
     cursor = data.cursor()
     for ix, row in df_sportifs.iterrows():
         try:
             if(row['numEq'] != 'null'):
                 query = "insert into LesMembres values ({},'{}')".format(row['numSp'], row['numEq'])
-
                 cursor.execute(query)
 
         except IntegrityError as err:
@@ -88,8 +86,6 @@ def read_excel_file_V1(data:sqlite3.Connection, file):
                 query = query + "'{}')".format(row['dateEp'])
             else:
                 query = query + "null)"
-            # On affiche la requête pour comprendre la construction. A enlever une fois compris.
-            #
             cursor.execute(query)
         except IntegrityError as err:
             print(f"{err} : \n{row}")
@@ -102,11 +98,7 @@ def read_excel_file_V1(data:sqlite3.Connection, file):
     cursor = data.cursor()
     for ix, row in df_Inscriptions.iterrows():
         try:
-            query = "insert into LesInscrits values ({},'{}')".format(
-                row['numIn'], row['numEp'])
-
-            # On affiche la requête pour comprendre la construction. A enlever une fois compris.
-            #
+            query = "insert into LesInscrits values ({},'{}')".format(row['numIn'], row['numEp'])
             cursor.execute(query)
         except IntegrityError as err:
             print(f"{err} : \n{row}")
@@ -121,9 +113,6 @@ def read_excel_file_V1(data:sqlite3.Connection, file):
         try:
             query = "insert into LesResultats values ({},'{}','{}','{}')".format(
                 row['numEp'], row['gold'],row['silver'],row['bronze'])
-
-            # On affiche la requête pour comprendre la construction. A enlever une fois compris.
-
             cursor.execute(query)
         except IntegrityError as err:
             print(f"{err} : \n{row}")
@@ -135,8 +124,6 @@ def read_excel_file_V1(data:sqlite3.Connection, file):
     for row in result:
         try:
             query = "insert into LesDisciplines values ('{}')".format(row[0])
-            # On affiche la requête pour comprendre la construction. A enlever une fois compris.
-            #
             cursor.execute(query)
         except IntegrityError as err:
             print(f"{err} : \n{row}")
@@ -167,9 +154,6 @@ def read_excel_file_V1(data:sqlite3.Connection, file):
             cursor.execute(query2)
             res_pays_1 = cursor.fetchone()
             query = query + "'{}')".format(res_pays_1[0])
-
-            # On affiche la requête pour comprendre la construction. A enlever une fois compris.
-
             cursor.execute(query)
         except IntegrityError as err:
             print(f"{err} : \n{row}")

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>710</width>
+    <width>825</width>
     <height>900</height>
    </rect>
   </property>
@@ -538,7 +538,7 @@
      <rect>
       <x>12</x>
       <y>640</y>
-      <width>685</width>
+      <width>705</width>
       <height>32</height>
      </rect>
     </property>
@@ -788,7 +788,7 @@
      <rect>
       <x>10</x>
       <y>140</y>
-      <width>681</width>
+      <width>738</width>
       <height>44</height>
      </rect>
     </property>
@@ -936,8 +936,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>710</width>
-     <height>21</height>
+     <width>825</width>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFiles">
@@ -1181,6 +1181,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pushButton_2_1</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>open_fct_dev_1()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>567</x>
+     <y>632</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>635</x>
+     <y>636</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>createDBV0()</slot>
@@ -1196,5 +1212,6 @@
   <slot>insertDBV1()</slot>
   <slot>openDataV1()</slot>
   <slot>createTriggersDBV1()</slot>
+  <slot>open_fct_dev_1()</slot>
  </slots>
 </ui>
