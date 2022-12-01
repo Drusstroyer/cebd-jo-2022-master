@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>fct_dev_1</class>
- <widget class="QDialog" name="fct_dev_1">
+ <class>fct_dev_2</class>
+ <widget class="QDialog" name="fct_dev_2">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,11 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Âge moyen des équipes ayant gagner l'or</string>
+   <string>Classement</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QTableWidget" name="table_fct_dev_1">
+    <widget class="QTableWidget" name="table_fct_dev_2">
      <attribute name="horizontalHeaderMinimumSectionSize">
       <number>50</number>
      </attribute>
@@ -30,18 +30,28 @@
      </attribute>
      <column>
       <property name="text">
-       <string>MoyAge</string>
+       <string>pays</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string>numEp</string>
+       <string>nbOr</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>nbArgent</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>NbBronze</string>
       </property>
      </column>
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="label_fct_dev_1">
+    <widget class="QLabel" name="label_fct_dev_2">
      <property name="text">
       <string/>
      </property>
