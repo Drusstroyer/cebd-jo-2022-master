@@ -87,4 +87,19 @@ SELECT numEq, COUNT(numSp) as nbEquipiers
 FROM LesMembres
 GROUP BY numEq;
 
+
+DROP VIEW IF EXISTS MoyAgeEqOr;
+CREATE VIEW IF NOT EXISTS MoyAgeEqOr
+AS
+WITH numEqOr AS (SELECT numOR AS numEQ
+								 FROM LesResultats),
+MoyDesEq AS (SELECT AVG(age) AS MoyAge ,numEq
+						FROM LesAgesSportifs JOIN LesMembres USING (numSp)
+						GROUP BY (numEq))
+SELECT MoyAge, numEq
+FROM MoyDesEQ
+WHERE numEq in (SELECT numEq FROM numEqOr);
+
+
+
 -- TODO 3.3 : ajouter les éléments nécessaires pour créer le trigger (attention, syntaxe SQLite différent qu'Oracle)
