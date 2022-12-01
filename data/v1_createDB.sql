@@ -1,4 +1,3 @@
--- TODO 1.3a : Créer les tables manquantes et modifier celles ci-dessous
 CREATE TABLE LesSportifs
 (
   numSp NUMBER(4) PRIMARY KEY,
@@ -75,15 +74,16 @@ CREATE TABLE LesInscrits
  numEp NUMBER(3),
  CONSTRAINT INS_EP_FK FOREIGN KEY (numEp) REFERENCES LesEpreuves(numEp)
 );
+
 DROP VIEW IF EXISTS LesAgesSportifs;
 CREATE VIEW IF NOT EXISTS LesAgesSportifs
 AS
-SELECT numSp, (YEAR(currentdate()) - YEAR(dateNaisSp))  AS age FROM LesSportifs;
+SELECT numSp, CURRENT_DATE-dateNaisSp  AS age FROM LesSportifs;
 
 DROP VIEW IF EXISTS LesNbsEquipiers;
 CREATE VIEW IF NOT EXISTS LesNbsEquipiers
 AS
-SELECT numEq, COUNT(numSp)
+SELECT numEq, COUNT(numSp) as nbEquipiers
 FROM LesMembres
 GROUP BY numEq;
 

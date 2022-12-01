@@ -1,4 +1,3 @@
--- TODO 1.3a : Détruire les tables manquantes et modifier celles ci-dessous
 DROP TABLE IF EXISTS LesMembres;
 DROP TABLE IF EXISTS LesDisciplines;
 DROP TABLE IF EXISTS LesResultats;
