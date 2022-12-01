@@ -43,7 +43,8 @@ class AppTablesDataV1(QDialog):
         self.refreshTable(self.ui.label_sportifs, self.ui.tableMembres, "SELECT numSp, numEq FROM LesMembres ORDER BY numEq")
         self.refreshTable(self.ui.label_sportifs, self.ui.tableInscrits, "SELECT numParticipant, numEp FROM LesInscrits ORDER BY numEp")
         self.refreshTable(self.ui.label_sportifs, self.ui.tableResultats, "SELECT numEp,numOr,numArg,numBrze FROM LesResultats ORDER BY numEp")
-        self.refreshTable(self.ui.label_sportifs, self.ui.tableDisciplines, "SELECT nomDi FROM LesDisciplines")
-        # TODO 1.3 : modifier pour afficher les nouveaux éléments (il faut aussi changer le fichier .ui correspondant)
+        self.refreshTable(self.ui.label_sportifs, self.ui.tableDisciplines, "SELECT nomDi FROM LesDisciplines ORDER BY nomDi")
+        self.refreshTable(self.ui.label_sportifs, self.ui.tableEquipes, "SELECT numEq, categorieEq, pays FROM LesEquipes ORDER BY numEq")
+
         # TODO 1.4b : ajouter l'affichage des éléments de la vue LesAgesSportifs après l'avoir créée
         # TODO 1.5b : ajouter l'affichage des éléments de la vue LesNbsEquipiers après l'avoir créée

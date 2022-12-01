@@ -149,11 +149,27 @@ def read_excel_file_V1(data:sqlite3.Connection, file):
         try:
             query = "insert into LesEquipes values ({},".format(row[0])
 
-            query2 = "SELECT categorieSp FROM LesSportifs join LesMembres using (numSp) where numEq = {}".format(row[0])
+            query2 = "SELECT categorieSp FROM LesSportifs JOIN LesMembres using (numSp) where numEq = {}".format(row[0])
             cursor.execute(query2)
+            res_cat_1 = cursor.fetchone()
+            res_cat = cursor.fetchall()
+            same = True
+            for cat_row in res_cat:
+                if(res_cat_1[0] != cat_row[0]):
+                    same = False
+
+            if(same):
+                query = query + "'{}',".format(res_cat_1[0])
+            else:
+                query = query + "'mixte',"
+
+            query2 = "SELECT pays FROM LesSportifs JOIN LesMembres using (numSp) where numEq = {}".format(row[0])
+            cursor.execute(query2)
+            res_pays_1 = cursor.fetchone()
+            query = query + "'{}')".format(res_pays_1[0])
 
             # On affiche la requête pour comprendre la construction. A enlever une fois compris.
-            #print(query)
+            print(query)
             cursor.execute(query)
         except IntegrityError as err:
             print(f"{err} : \n{row}")
