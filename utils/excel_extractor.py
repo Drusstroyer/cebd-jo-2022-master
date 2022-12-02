@@ -90,33 +90,6 @@ def read_excel_file_V1(data:sqlite3.Connection, file):
         except IntegrityError as err:
             print(f"{err} : \n{row}")
 
-
-    df_Inscriptions = pandas.read_excel(file, sheet_name='LesInscriptions', dtype=str)
-    df_Inscriptions = df_Inscriptions.where(pandas.notnull(df_Inscriptions), 'null')
-
-
-    cursor = data.cursor()
-    for ix, row in df_Inscriptions.iterrows():
-        try:
-            query = "insert into LesInscrits values ({},'{}')".format(row['numIn'], row['numEp'])
-            cursor.execute(query)
-        except IntegrityError as err:
-            print(f"{err} : \n{row}")
-
-
-    df_res = pandas.read_excel(file, sheet_name='LesResultats', dtype=str)
-    df_res = df_res.where(pandas.notnull(df_res), 'null')
-
-
-    cursor = data.cursor()
-    for ix, row in df_res.iterrows():
-        try:
-            query = "insert into LesResultats values ({},'{}','{}','{}')".format(
-                row['numEp'], row['gold'],row['silver'],row['bronze'])
-            cursor.execute(query)
-        except IntegrityError as err:
-            print(f"{err} : \n{row}")
-
     cursor = data.cursor()
     query1 = "SELECT DISTINCT nomDi FROM LesEpreuves"
     cursor.execute(query1)
@@ -157,6 +130,39 @@ def read_excel_file_V1(data:sqlite3.Connection, file):
             cursor.execute(query)
         except IntegrityError as err:
             print(f"{err} : \n{row}")
+
+    df_Inscriptions = pandas.read_excel(file, sheet_name='LesInscriptions', dtype=str)
+    df_Inscriptions = df_Inscriptions.where(pandas.notnull(df_Inscriptions), 'null')
+
+
+    cursor = data.cursor()
+    for ix, row in df_Inscriptions.iterrows():
+        try:
+            query = "insert into LesInscrits values ({},'{}')".format(row['numIn'], row['numEp'])
+            cursor.execute(query)
+        except IntegrityError as err:
+            print(f"{err} : \n{row}")
+
+
+    df_res = pandas.read_excel(file, sheet_name='LesResultats', dtype=str)
+    df_res = df_res.where(pandas.notnull(df_res), 'null')
+
+
+    cursor = data.cursor()
+    for ix, row in df_res.iterrows():
+        try:
+            query = "insert into LesResultats values ({},{},{},{})".format(
+                row['numEp'], row['gold'],row['silver'],row['bronze'])
+            print(query)
+            cursor.execute(query)
+        except IntegrityError as err:
+            print(f"{err} : \n{row}")
+
+
+
+
+
+
 
 
 
