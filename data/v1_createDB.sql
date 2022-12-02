@@ -100,6 +100,31 @@ SELECT MoyAge, numEq
 FROM MoyDesEQ
 WHERE numEq in (SELECT numEq FROM numEqOr);
 
+-- medaille-pays:
+DROP VIEW IF EXISTS Rankings;
+CREATE VIEW IF NOT EXISTS Rankings
+AS
+WITH all_pays AS (SELECT DISTINCT pays, numEp,numParticipant
+				FROM  LesSportifs LEFT OUTER JOIN LesEquipes USING (pays)  JOIN LesInscrits ON (numParticipant=numEq or numParticipant=numSp)),
+orr AS (SELECT  DISTINCT numOr,pays AS paysOr,LesResultats.numEp
+		FROM  LesResultats JOIN all_pays ON (numOr=numParticipant)),
+arg AS (SELECT  DISTINCT numArg,pays AS paysArg,LesResultats.numEp
+		FROM  LesResultats JOIN all_pays ON (numArg=numParticipant)),
+brze AS (SELECT  DISTINCT numBrze,pays AS paysBrze,LesResultats.numEp
+		FROM  LesResultats JOIN all_pays ON (numBrze=numParticipant)),
+pays_results AS(SELECT numOr,paysOr,numBrze,paysBrze,numArg,paysArg,numEp
+				FROM orr JOIN arg USING (numEp)JOIN brze USING(numEp)),
+countOr AS (SELECT COUNT (numOr) AS count1, paysOr,numEp
+			FROM pays_results GROUP by  paysOr),
+countArg AS (SELECT COUNT (numArg) AS count2, paysArg,numEp
+			FROM pays_results GROUP by  paysArg),
+countBrze AS (SELECT COUNT (numBrze) AS count3, paysBrze,numEp
+			FROM pays_results GROUP BY  paysBrze)
+SELECT pays,coalesce(count1,'0') AS Medaille_Or, coalesce(count2,'0') AS Medaille_Arg ,coalesce(count3,'0') AS Medaille_Brze
+FROM all_pays LEFT OUTER JOIN countOr ON (paysOr=pays) LEFT OUTER JOIN countArg ON (paysArg=pays  ) LEFT OUTER JOIN countBrze ON (paysBrze=pays)
+GROUP BY pays
+ORDER BY count1 DESC,count2 DESC,count3 DESC;
+
 
 
 -- TODO 3.3 : ajouter les éléments nécessaires pour créer le trigger (attention, syntaxe SQLite différent qu'Oracle)
