@@ -22,7 +22,7 @@ class AppFctDev2Partie2(QDialog):
         display.refreshLabel(self.ui.label_fct_dev_2, "")
         try:
             cursor = self.data.cursor()
-            result = cursor.execute("")
+            result = cursor.execute("SELECT pays, Medaille_Or, Medaille_Arg, Medaille_Brze FROM Rankings")
         except Exception as e:
             self.ui.table_fct_dev_2.setRowCount(0)
             display.refreshLabel(self.ui.label_fct_dev_2, "Impossible d'afficher les résultats : " + repr(e))
