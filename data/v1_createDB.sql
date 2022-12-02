@@ -19,7 +19,7 @@ CREATE TABLE LesEpreuves
   CONSTRAINT EP_CK4 CHECK (nbSportifsEp > 0),
   CONSTRAINT EP_CK5 FOREIGN KEY (nomDi) REFERENCES LesDisciplines(nomDi)
 );
-..
+
 CREATE TABLE LesInscrits
 (
  numParticipant NUMBER(4),

@@ -49,5 +49,3 @@ class AppTablesDataV1(QDialog):
         self.refreshTable(self.ui.label_sportifs, self.ui.tableAge, "SELECT numSp,age FROM LesAgesSportifs ORDER BY numSp")
 
 
-        # TODO 1.4b : ajouter l'affichage des éléments de la vue LesAgesSportifs après l'avoir créée
-

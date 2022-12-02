@@ -21,7 +21,7 @@ class AppWindow(QMainWindow):
     # Création d'un signal destiné à être émis lorsque la table est modifiée
     changedValue = pyqtSignal()
 
-    # TODO 2 : ajouter les fenetres (répertoire gui) et les actions (répertoire actions) correspondant aux 2 items de la partie 2. Test if I'm commiting right
+
     # TODO 3 : ajouter les fenetres (rep. gui) et les actions (rep. actions) correspondant aux 2 items de la partie 3.
 
     # On prévoit des variables pour accueillir les fenêtres supplémentaires
@@ -186,7 +186,6 @@ class AppWindow(QMainWindow):
     # Ouverture des autres fenêtres de l'application
     ####################################################################################################################
 
-    # TODO 2 : ajouter la définition des méthodes déclenchées lors des clicks sur les boutons de la partie 2
     # TODO 3 : ajouter la définition des méthodes déclenchées lors des clicks sur les boutons de la partie 3
 
     # En cas de clic sur le bouton de visualisation des données
@@ -250,7 +249,6 @@ class AppWindow(QMainWindow):
     # Fonctions liées aux évènements (signal/slot/event)
     ####################################################################################################################
 
-    # TODO 2 : penser à fermer correctement les fenêtres de la partie 2
     # TODO 3 : penser à fermer correctement il faut les fenêtres de la partie 3
 
     # On intercepte l'évènement de cloture de la fenêtre principale pour intercaler quelques actions avant sa fermeture

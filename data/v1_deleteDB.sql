@@ -11,3 +11,7 @@ DROP TABLE IF EXISTS LesDisciplines;
 
 
 -- TODO 3.3 : pensez à détruire vos triggers !
+DROP TRIGGER IF EXISTS DuMemePays;
+DROP TRIGGER IF EXISTS DoitEtreInscrit;
+DROP TRIGGER IF EXISTS epreuvesParEquipes;
+DROP TRIGGER IF EXISTS epreuvesIndividuelle;
